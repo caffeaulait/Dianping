@@ -1,4 +1,8 @@
 package com.caffeaulait.dianping.service;
 
-public class UserService {
+import com.caffeaulait.dianping.model.User;
+
+public interface UserService {
+
+    User getUser(Integer id);
 }
