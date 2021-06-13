@@ -43,7 +43,7 @@
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         -->
         <!--mvn mybatis-generator:generate-->
-        <table tableName="category"  domainObjectName="Category"
+        <table tableName="shop"  domainObjectName="Shop"
                enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">

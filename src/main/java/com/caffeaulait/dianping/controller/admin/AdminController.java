@@ -1,6 +1,9 @@
 package com.caffeaulait.dianping.controller.admin;
 
 import com.caffeaulait.dianping.common.*;
+import com.caffeaulait.dianping.service.CategoryService;
+import com.caffeaulait.dianping.service.SellerService;
+import com.caffeaulait.dianping.service.ShopService;
 import com.caffeaulait.dianping.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +28,15 @@ public class AdminController {
     private UserService userService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private SellerService sellerService;
+
+    @Autowired
     private HttpServletRequest httpServletRequest;
 
     public static final String CURRENT_ADMIN_SESSION = "CURRENT_ADMIN_SESSION";
@@ -35,7 +47,10 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView("/admin/admin/index");
         modelAndView.addObject("CONTROLLER_NAME", "admin");
         modelAndView.addObject("ACTION_NAME", "index");
-        modelAndView.addObject("userCount", userService.countAllUser());
+        modelAndView.addObject("userCount", userService.countAll());
+        modelAndView.addObject("sellerCount", sellerService.countAll());
+        modelAndView.addObject("categoryCount", categoryService.countAll());
+        modelAndView.addObject("shopCount", shopService.countAll());
         return modelAndView;
     }
 

@@ -47,4 +47,9 @@ public class SellerServiceImpl implements SellerService {
         sellerMapper.updateByPrimaryKeySelective(seller);
         return seller;
     }
+
+    @Override
+    public Integer countAll() {
+        return sellerMapper.countAll();
+    }
 }

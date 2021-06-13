@@ -14,4 +14,6 @@ public interface SellerService {
     List<Seller> selectAll();
 
     Seller changeStatus(Integer id, Integer flag) throws BusinessException;
+
+    Integer countAll();
 }

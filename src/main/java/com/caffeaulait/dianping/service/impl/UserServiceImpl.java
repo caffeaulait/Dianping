@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer countAllUser() {
-        return userMapper.countAllUser();
+    public Integer countAll() {
+        return userMapper.countAll();
     }
 
 }

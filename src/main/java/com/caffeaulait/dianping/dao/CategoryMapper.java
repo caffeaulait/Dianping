@@ -56,4 +56,6 @@ public interface CategoryMapper {
     int updateByPrimaryKey(Category record);
 
     List<Category> selectAll();
+
+    Integer countAll();
 }

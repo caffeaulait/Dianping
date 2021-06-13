@@ -57,5 +57,5 @@ public interface UserMapper {
      */
     int updateByPrimaryKey(User record);
 
-    Integer countAllUser();
+    Integer countAll();
 }

@@ -56,4 +56,6 @@ public interface SellerMapper {
     int updateByPrimaryKey(Seller record);
 
     List<Seller> selectAll();
+
+    Integer countAll();
 }
