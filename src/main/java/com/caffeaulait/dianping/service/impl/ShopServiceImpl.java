@@ -12,7 +12,9 @@ import com.caffeaulait.dianping.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -67,5 +69,33 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public Integer countAll() {
         return shopMapper.countAll();
+    }
+
+    @Override
+    public List<Shop> recommend(BigDecimal longitude, BigDecimal latitude) {
+        List<Shop> shops =  shopMapper.recommend(longitude, latitude);
+        shops.forEach(shop -> {
+            shop.setSeller(sellerService.get(shop.getSellerId()));
+            shop.setCategory(categoryService.get(shop.getCategoryId()));
+        });
+        return shops;
+    }
+
+    @Override
+    public List<Shop> search(BigDecimal longitude, BigDecimal latitude,
+                             String keyword, Integer orderby,
+                             Integer categoryId, String tags) {
+        List<Shop> shops = shopMapper.search(longitude, latitude, keyword,
+                orderby, categoryId, tags);
+        shops.forEach(shop -> {
+            shop.setSeller(sellerService.get(shop.getSellerId()));
+            shop.setCategory(categoryService.get(shop.getCategoryId()));
+        });
+        return shops;
+    }
+
+    @Override
+    public List<Map<String, Object>> searchGroupByTags(String keyword, Integer categoryId, String tags) {
+        return shopMapper.searchGroupByTags(keyword, categoryId, tags);
     }
 }

@@ -1,9 +1,12 @@
 package com.caffeaulait.dianping.dao;
 
 import com.caffeaulait.dianping.model.Shop;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ShopMapper {
@@ -58,4 +61,18 @@ public interface ShopMapper {
     List<Shop> selectAll();
 
     Integer countAll();
+
+    List<Shop> recommend(@Param("longitude") BigDecimal longitude,
+                         @Param("latitude") BigDecimal latitude);
+
+    List<Shop> search(@Param("longitude") BigDecimal longitude,
+                      @Param("latitude") BigDecimal latitude,
+                      @Param("keyword") String keyword,
+                      @Param("orderby") Integer orderby,
+                      @Param("categoryId") Integer categoryId,
+                      @Param("tags") String tags);
+
+    List<Map<String, Object>> searchGroupByTags(@Param("keyword") String keyword,
+                                                @Param("categoryId") Integer categoryId,
+                                                @Param("tags") String tags);
 }
