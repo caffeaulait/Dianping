@@ -1,9 +1,7 @@
 package com.caffeaulait.dianping.controller.admin;
 
 import com.caffeaulait.dianping.common.*;
-import com.caffeaulait.dianping.request.PageQuery;
 import com.caffeaulait.dianping.service.UserService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,7 @@ import org.thymeleaf.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
-@Controller
+@Controller("/admin/admin")
 @RequestMapping("/admin/admin")
 public class AdminController {
 

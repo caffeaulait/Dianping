@@ -16,6 +16,9 @@ public enum BusinessError {
 
     //管理后台
     ADMIN_NOT_LOGIN(30001, "ADMIN_NOT_LOGIN"),
+
+    //品类
+    CATEGORY_NAME_DUPLICATE(40001, "品类已存在"),
     ;
 
     private Integer code;

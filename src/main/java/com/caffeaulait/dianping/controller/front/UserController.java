@@ -1,4 +1,4 @@
-package com.caffeaulait.dianping.controller;
+package com.caffeaulait.dianping.controller.front;
 
 
 import com.caffeaulait.dianping.common.BusinessError;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 
-@Controller
+@Controller("/user")
 @RequestMapping("/user")
 public class UserController {
 
