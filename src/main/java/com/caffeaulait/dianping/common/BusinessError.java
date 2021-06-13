@@ -11,7 +11,11 @@ public enum BusinessError {
 
     //用户服务
     REGISTER_DUPLICATE_ERROR(20001, "手机号已被使用"),
-    LOGIN_FAIL(20002, "手机号或密码错误")
+    LOGIN_FAIL(20002, "手机号或密码错误"),
+
+
+    //管理后台
+    ADMIN_NOT_LOGIN(30001, "ADMIN_NOT_LOGIN"),
     ;
 
     private Integer code;

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,7 +30,7 @@ public class UserController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @GetMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Result getUser(@PathVariable Integer id) throws BusinessException {
         User user = userService.getUser(id);
@@ -42,7 +41,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public Result register(@Valid @RequestBody RegisterReq registerReq,
                            BindingResult bindingResult) throws BusinessException,
@@ -59,7 +58,7 @@ public class UserController {
         return Result.success(data);
     }
 
-    @PostMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Result login(@Valid @RequestBody LoginReq loginReq, BindingResult bindingResult) throws BusinessException, NoSuchAlgorithmException {
         if (bindingResult.hasErrors()) {
@@ -70,24 +69,17 @@ public class UserController {
         return Result.success(user);
     }
 
-    @PostMapping("/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public Result logout(){
         httpServletRequest.getSession().invalidate();
         return Result.success(null);
     }
 
-    @GetMapping("/current")
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
     @ResponseBody
     public Result getCurrentUser(){
         User user = (User) httpServletRequest.getSession().getAttribute(CURRENT_USER_SESSION);
         return Result.success(user);
-    }
-
-    @RequestMapping("/index")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("/index.html");
-        modelAndView.addObject("name", "test name");
-        return modelAndView;
     }
 }
