@@ -12,3 +12,8 @@ mvnw.cmd
 *.iws
 *.iml
 *.ipr
+
+src/main/resources/static
+src/main/resources/templates
+
+.DS_Store
