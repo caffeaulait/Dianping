@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -48,15 +49,19 @@ public class ShopController {
                          @RequestParam String keyword,
                          @RequestParam(required = false) Integer orderby,
                          @RequestParam(required = false) Integer categoryId,
-                         @RequestParam(required = false) String tags) throws BusinessException {
+                         @RequestParam(required = false) String tags) throws BusinessException, IOException {
         if (StringUtils.isEmpty(keyword) || latitude == null || longitude == null) {
             throw new BusinessException(BusinessError.PARAMETER_VALIDATION_ERROR);
         }
-        List<Shop> shops = shopService.search(longitude, latitude, keyword,
-               orderby, categoryId, tags);
+//        List<Shop> shops = shopService.search(longitude, latitude, keyword,
+//               orderby, categoryId, tags);
+        Map<String, Object> result = shopService.searchES(longitude, latitude
+                , keyword, orderby, categoryId, tags);
+        List<Shop> shops = (List<Shop>) result.get("shops");
         List<Category> categories = categoryService.selectAll();
-        List<Map<String,Object>> tagsAggregation =
-                shopService.searchGroupByTags(keyword, categoryId, tags);
+//        List<Map<String,Object>> tagsAggregation =
+//                shopService.searchGroupByTags(keyword, categoryId, tags);
+        List<Map<String, Object>> tagsAggregation = (List<Map<String, Object>>) result.get("tags");
         Map<String, Object> map = new HashMap<>();
         map.put("shop", shops);
         map.put("category", categories);
