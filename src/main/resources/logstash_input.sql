@@ -12,3 +12,6 @@ select a.id,
 from shop a
          inner join category b on a.category_id = b.id
          inner join seller c on c.id = a.seller_id
+where  a.updated_at > :sql_last_value
+    or b.updated_at > :sql_last_value
+    or c.updated_at > :sql_last_value
