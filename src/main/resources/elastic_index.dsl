@@ -1,3 +1,5 @@
+DELETE /shop
+
 PUT /shop
 {
  "settings": {
@@ -39,6 +41,20 @@ PUT /shop
      "seller_disabled_flag": {"type": "integer"}
    }
  }
+}
+
+
+GET /shop/_search
+{
+  "query": {
+    "match": {"name": "凯悦"}
+  }
+}
+
+GET /shop/_analyze
+{
+  "analyzer": "ik_smart",
+  "text": "凯悦"
 }
 
 #带上距离字段
@@ -109,9 +125,15 @@ GET /shop/_search
       "query": {
         "bool": {
           "must": [
-            {"match": {"name": {"query": "凯悦", "boost": 0.1}}},
-            {"term": {"seller_disabled_flag": 0}},
-            {"term": {"category_id": 2}}
+            {
+              "bool": {
+                "should": [
+                  {"match": {"name": {"query": "凯悦", "boost": 0.1}}},
+                  {"term": {"category_id": {"value": 2, "boost": 0.1}}}
+                ]
+              }
+            },
+            {"term": {"seller_disabled_flag": 0}}
           ]
         }
       },
@@ -204,4 +226,36 @@ GET /shop/_search
       }
     }
   ]
+}
+
+GET /shop/_search
+{
+
+}
+
+GET /shop/_search
+{
+  "query": {
+    "match": {
+      "name": "红桃"
+    }
+  }
+}
+
+POST /shop/_update_by_query
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"term": {"name": "凯"}},
+        {"term": {"name": "悦"}}
+      ]
+    }
+  }
+}
+
+GET /shop/_analyze
+{
+  "field": "name",
+  "text": "凯悦"
 }
