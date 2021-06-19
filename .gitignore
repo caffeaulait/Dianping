@@ -15,5 +15,6 @@ mvnw.cmd
 
 src/main/resources/static
 src/main/resources/templates
+src/main/resources/ml_data
 
 .DS_Store
