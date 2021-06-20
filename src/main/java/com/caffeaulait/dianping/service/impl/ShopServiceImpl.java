@@ -8,10 +8,13 @@ import com.caffeaulait.dianping.dao.ShopMapper;
 import com.caffeaulait.dianping.model.Category;
 import com.caffeaulait.dianping.model.Seller;
 import com.caffeaulait.dianping.model.Shop;
+import com.caffeaulait.dianping.recommend.RecommendService;
+import com.caffeaulait.dianping.recommend.RecommendSortService;
 import com.caffeaulait.dianping.service.CategoryService;
 import com.caffeaulait.dianping.service.SellerService;
 import com.caffeaulait.dianping.service.ShopService;
 import org.apache.http.util.EntityUtils;
+import org.apache.spark.sql.sources.In;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Request;
@@ -50,6 +53,12 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     private SellerService sellerService;
+
+    @Autowired
+    private RecommendService recommendService;
+
+    @Autowired
+    private RecommendSortService recommendSortService;
 
     @Autowired
     private RestHighLevelClient client;
@@ -97,9 +106,21 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.countAll();
     }
 
-    @Override
+//    @Override
+//    public List<Shop> recommend(BigDecimal longitude, BigDecimal latitude) {
+//        List<Shop> shops =  shopMapper.recommend(longitude, latitude);
+//        shops.forEach(shop -> {
+//            shop.setSeller(sellerService.get(shop.getSellerId()));
+//            shop.setCategory(categoryService.get(shop.getCategoryId()));
+//        });
+//        return shops;
+//    }
+
     public List<Shop> recommend(BigDecimal longitude, BigDecimal latitude) {
-        List<Shop> shops =  shopMapper.recommend(longitude, latitude);
+        int userId = 202020;
+        List<Integer> shopIdList = recommendService.recall(userId);
+        shopIdList = recommendSortService.sort(shopIdList, userId);
+        List<Shop> shops = shopIdList.stream().map(this::get).collect(Collectors.toList());
         shops.forEach(shop -> {
             shop.setSeller(sellerService.get(shop.getSellerId()));
             shop.setCategory(categoryService.get(shop.getCategoryId()));

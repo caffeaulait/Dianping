@@ -22,9 +22,9 @@ import java.io.IOException;
 
 import static com.caffeaulait.dianping.recommend.als.AlsRecallTrain.DATA_PATH;
 
-public class LTTrain {
+public class LRTrain {
 
-    private static final Logger logger = LoggerFactory.getLogger(LTTrain.class);
+    private static final Logger logger = LoggerFactory.getLogger(LRTrain.class);
 
     public static void main(String[] args) throws IOException {
         SparkSession sparkSession = SparkSession.builder().master("local").appName("dianping").getOrCreate();
